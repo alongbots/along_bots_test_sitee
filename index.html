@@ -1,292 +1,126 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AlONG BOTS — Test Site Prototype</title>
-
-  <!-- Google font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Maintenance</title>
   <style>
-    :root{
-      --bg-1: #e9e9ec;
-      --bg-2: #d2d3d6;
-      --card: rgba(255,255,255,0.06);
-      --muted: #bfc2c6;
-      --accent: #9aa0a6;
-      --glass: rgba(255,255,255,0.03);
+    /* Background gradient */
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #001f3f, #003366, #0055aa);
+      color: #fff;
+      overflow: hidden;
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(135deg, var(--bg-1), var(--bg-2));
-      color: #e9eef2;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      overflow:hidden;
+    /* Maintenance card */
+    .card {
+      background: rgba(0, 0, 0, 0.55);
+      padding: 28px 24px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(0, 102, 255, 0.5);
+      animation: slideUp 0.8s ease forwards;
     }
 
-    /* page layout */
-    .wrap{
-      min-height:100vh;
-      display:grid;
-      place-items:center;
-      padding:32px;
+    .card h1 {
+      font-size: 1.8rem;
+      margin: 0 0 10px;
+      color: #ffdd00;
+      text-shadow: 0 0 10px #ffdd00, 0 0 20px #ffdd00;
     }
 
-    .card{
-      width:min(1100px, 94%);
-      border-radius:18px;
-      padding:44px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.06));
-      box-shadow: 0 8px 30px rgba(10,12,15,0.25);
-      position:relative;
-      overflow:hidden;
-      backdrop-filter: blur(6px) saturate(120%);
-      border: 1px solid rgba(255,255,255,0.03);
+    .card p {
+      font-size: 1rem;
+      color: #d9e6ff;
+      margin: 0 0 15px;
     }
 
-    /* decorative floating shapes */
-    .float {
-      position:absolute;
-      border-radius:12px;
-      filter: blur(20px);
-      opacity:0.12;
-      transform: translate3d(0,0,0);
-      pointer-events:none;
-      mix-blend-mode: overlay;
+    /* Gooey bubbles */
+    .gooey {
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, #ffdd00, transparent 70%);
+      border-radius: 50%;
+      top: 15%;
+      left: -60px;
+      filter: blur(80px);
+      animation: float 6s ease-in-out infinite alternate;
     }
-    .f1{ width:240px;height:120px; background:#6f7377; top:-30px; left:-40px; transform: rotate(14deg) }
-    .f2{ width:160px;height:160px; background:#8d9196; bottom:-50px; right:-60px; transform: rotate(-10deg) }
-
-    /* left column (text + animated words) */
-    .hero{
-      display:flex;
-      gap:28px;
-      align-items:center;
-      justify-content:space-between;
-    }
-    .left{
-      width:62%;
-    }
-
-    .eyebrow{
-      font-weight:600;
-      letter-spacing:1.2px;
-      color:var(--accent);
-      font-size:13px;
-      margin-bottom:10px;
-      text-transform:uppercase;
+    .gooey2 {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, #00aaff, transparent 70%);
+      border-radius: 50%;
+      bottom: 10%;
+      right: -50px;
+      filter: blur(80px);
+      animation: float2 7s ease-in-out infinite alternate;
     }
 
-    h1{
-      margin:0 0 14px 0;
-      font-size:46px;
-      line-height:1.02;
-      letter-spacing:-0.5px;
-      color: #f6f8fa;
-      font-weight:800;
+    /* Animations */
+    @keyframes slideUp {
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes float {
+      0% { transform: translateY(0) translateX(0); }
+      100% { transform: translateY(-40px) translateX(40px); }
+    }
+    @keyframes float2 {
+      0% { transform: translateY(0) translateX(0); }
+      100% { transform: translateY(-30px) translateX(-40px); }
     }
 
-    p.lead{
-      margin:0 0 22px 0;
-      color:var(--muted);
-      font-size:15px;
-      max-width:680px;
+    /* Glowing pulse */
+    .pulse {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #ffdd00;
+      animation: glow 1.6s infinite;
+    }
+    @keyframes glow {
+      0%, 100% { opacity: 1; text-shadow: 0 0 10px #ffdd00; }
+      50% { opacity: 0.6; text-shadow: 0 0 25px #ffee66; }
     }
 
-    /* sliding words area */
-    .slideshow{
-      position:relative;
-      width:100%;
-      height:130px;
-      margin-top:10px;
-      overflow:visible;
-      pointer-events:none;
+    /* Mobile only - block desktop */
+    @media (min-width: 600px) {
+      body::before {
+        content: "⚠️ This site is for mobile devices only!";
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #001f3f;
+        color: #ffdd00;
+        font-size: 2rem;
+        text-align: center;
+        padding: 20px;
+        z-index: 9999;
+      }
+      .card { display: none; }
     }
-
-    .slide {
-      position:absolute;
-      left:0;
-      top:0;
-      width:100%;
-      height:100%;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      transform-origin:center;
-      will-change: transform, opacity;
-      mix-blend-mode: normal;
-    }
-
-    .slide .big {
-      font-weight:900;
-      font-size:28px;
-      letter-spacing: -0.6px;
-      color: #ffffff;
-      text-shadow: 0 6px 18px rgba(9,10,11,0.25);
-      background: linear-gradient(90deg, rgba(255,255,255,0.95), rgba(245,245,245,0.85));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      display:inline-block;
-    }
-
-    .slide .small {
-      font-weight:500;
-      color:var(--muted);
-      font-size:14px;
-      text-transform:uppercase;
-      letter-spacing:1.6px;
-    }
-
-    /* each slide with staggered animation using keyframes */
-    .s1{ animation: slideInOut 10s linear infinite; animation-delay: 0s; }
-    .s2{ animation: slideInOut 10s linear infinite; animation-delay: 2.5s; transform: translateX(6%); }
-    .s3{ animation: slideInOut 10s linear infinite; animation-delay: 5s; transform: translateX(12%); }
-    .s4{ animation: slideInOut 10s linear infinite; animation-delay: 7.5s; transform: translateX(18%); }
-
-    @keyframes slideInOut {
-      0%   { opacity:0; transform: translateY(40px) scale(.98) rotate(-2deg); filter: blur(6px); }
-      8%   { opacity:1; transform: translateY(0) scale(1) rotate(0deg); filter: blur(0px); }
-      25%  { opacity:1; transform: translateY(-6px) scale(1.01) rotate(0deg); }
-      45%  { opacity:0.6; transform: translateY(-20px) scale(.99) rotate(1deg); filter: blur(2px); }
-      60%  { opacity:0; transform: translateY(-40px) scale(.96) rotate(2deg); filter: blur(6px); }
-      100% { opacity:0; }
-    }
-
-    /* right column: preview / decorative panel */
-    .right{
-      width:36%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .mock{
-      width:100%;
-      height:200px;
-      border-radius:14px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-      border:1px solid rgba(255,255,255,0.03);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex-direction:column;
-      padding:18px;
-      gap:8px;
-    }
-
-    .mock .top{
-      width:84%;
-      height:12px;
-      border-radius:12px;
-      background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.04));
-      box-shadow: inset 0 -2px 8px rgba(0,0,0,0.2);
-    }
-
-    .muted-sm{
-      color:var(--muted);
-      font-size:12px;
-      letter-spacing:0.6px;
-    }
-
-    /* responsive */
-    @media (max-width:880px){
-      .hero{ flex-direction:column; align-items:flex-start; gap:16px; }
-      .left{ width:100% }
-      .right{ width:100% }
-      h1{ font-size:34px }
-      .slideshow{ height:120px }
-    }
-
-    /* small accent footer */
-    .foot{
-      margin-top:26px;
-      color:var(--muted);
-      font-size:12px;
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-
-    /* subtle hover interaction to calm animation */
-    .card:hover .slide { animation-play-state: paused; }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card" role="main" aria-label="AlONG BOTS test prototype">
-      <div class="float f1" aria-hidden="true"></div>
-      <div class="float f2" aria-hidden="true"></div>
+  <!-- Gooey glowing shapes -->
+  <div class="gooey"></div>
+  <div class="gooey2"></div>
 
-      <div class="hero">
-        <div class="left">
-          <div class="eyebrow">Prototype • Grey Theme</div>
-
-          <h1>
-            AYU HELLO 👋🏽
-          </h1>
-
-          <p class="lead">THIS IS <strong>AlONG BOTS</strong> TEST SITE — HOPE YOUR ENJOYING <strong>ALONG_BOTS AN SERVIC</strong></p>
-
-          <div class="slideshow" aria-hidden="false">
-            <!-- Slide 1 -->
-            <div class="slide s1" style="--i:0">
-              <div class="big">Slide the words</div>
-              <div class="small">— Smooth & prototype feel</div>
-            </div>
-
-            <!-- Slide 2 -->
-            <div class="slide s2" style="--i:1">
-              <div class="big">Cool animated text</div>
-              <div class="small">— Bold, clear, quick</div>
-            </div>
-
-            <!-- Slide 3 -->
-            <div class="slide s3" style="--i:2">
-              <div class="big">Positions that flow</div>
-              <div class="small">— Floating, subtle motion</div>
-            </div>
-
-            <!-- Slide 4 -->
-            <div class="slide s4" style="--i:3">
-              <div class="big">Prototype ready</div>
-              <div class="small">— Use, tweak, deploy</div>
-            </div>
-          </div>
-
-          <div class="foot">
-            <div class="muted-sm">Tip: hover the card to pause animation</div>
-          </div>
-        </div>
-
-        <div class="right">
-          <div class="mock" aria-hidden="true">
-            <div class="top"></div>
-            <div style="font-weight:700;font-size:18px;color:#fff">ALONG_BOTS</div>
-            <div class="muted-sm">Test preview • Grey UI</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
+  <!-- Main content -->
+  <div class="card">
+    <h1>🚧 Under Maintenance</h1>
+    <p>We’re upgrading the system.<br> Please check back soon!</p>
+    <div class="pulse">✨ Cool updates in progress...</div>
   </div>
-
-  <!-- Optional: small script to slightly randomize the initial phase (makes it feel more organic) -->
-  <script>
-    // add a random start offset to each slide so they don't all align on reload
-    document.querySelectorAll('.slide').forEach((el, i) => {
-      const delay = (Math.random() * 10).toFixed(2);
-      el.style.animationDelay = delay + 's';
-    });
-    // Accessibility: reduce motion respects
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.querySelectorAll('.slide').forEach(s => s.style.animation = 'none');
-    }
-  </script>
 </body>
 </html>
