@@ -2,13 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Under Maintenance</title>
   <style>
-    /*
-      The background image from the URL provided, with a subtle overlay
-      for a richer, deeper color scheme.
-    */
+    /* ===== RESET ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ===== MOBILE ONLY BLOCKER ===== */
+    @media (min-width: 768px) {
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #000;
+        color: #fff;
+        font-family: sans-serif;
+        height: 100vh;
+        text-align: center;
+      }
+      body::before, .card, .gooey, .gooey2 { display: none !important; }
+      body::after {
+        content: "⚠️ This site is only available on mobile devices.";
+        font-size: 1.5rem;
+        padding: 20px;
+      }
+    }
+
+    /* ===== BACKGROUND ===== */
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
@@ -28,113 +48,101 @@
     body::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6); /* Dark semi-transparent overlay */
-      backdrop-filter: blur(5px); /* Adds a subtle blur effect to the background */
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
       z-index: 1;
     }
 
-    /*
-      The main container for the text and elements,
-      elevated with a subtle animation and red-themed styling.
-    */
+    /* ===== CARD ===== */
     .card {
       position: relative;
       z-index: 2;
       text-align: center;
-      padding: 30px 40px;
-      background: rgba(255, 255, 255, 0.05); /* Very subtle transparent background */
-      border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* Frosted glass effect */
-      animation: fadeIn 1s ease-in-out forwards;
+      padding: 28px 32px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      animation: fadeUp 1.2s ease forwards;
       max-width: 90%;
+      transform: scale(0.95);
+      animation: zoomIn 1.2s ease forwards;
     }
 
     .card h1 {
-      font-size: 2.2rem;
+      font-size: 2rem;
       font-weight: 700;
-      margin-bottom: 10px;
-      color: #ff3838; /* A vibrant, striking red */
+      margin-bottom: 12px;
+      color: #ff3b3b;
       text-shadow: 0 0 15px #ff0000;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
+      animation: glowText 2s infinite alternate;
     }
 
     .card p {
-      font-size: 1.1rem;
-      margin-top: 0;
-      color: #ccc;
+      font-size: 1rem;
+      color: #ddd;
       line-height: 1.6;
     }
 
-    /*
-      The pulsing "glow" effect at the bottom of the card,
-      using the same red color for continuity.
-    */
     .pulse {
-      font-size: 1rem;
-      margin-top: 20px;
-      color: #ff3838;
+      font-size: 0.95rem;
+      margin-top: 18px;
+      color: #ff4949;
       font-weight: 500;
       animation: neonPulse 2s infinite ease-in-out;
     }
 
-    /*
-      Subtle visual accents (gooey blobs) with a red gradient,
-      mimicking the original design's aesthetic but with the new color.
-    */
+    /* ===== GOOEY BLOBS ===== */
     .gooey, .gooey2 {
       position: absolute;
       background: radial-gradient(circle, #ff0000, transparent 70%);
       border-radius: 50%;
-      filter: blur(60px);
-      opacity: 0.4;
+      filter: blur(70px);
+      opacity: 0.45;
     }
 
     .gooey {
-      width: 250px;
-      height: 250px;
-      top: 15%;
-      left: -60px;
-      animation: float-red 7s ease-in-out infinite alternate;
+      width: 220px; height: 220px;
+      top: 15%; left: -60px;
+      animation: float1 6s ease-in-out infinite alternate;
     }
 
     .gooey2 {
-      width: 200px;
-      height: 200px;
-      bottom: 10%;
-      right: -50px;
-      animation: float-red2 8s ease-in-out infinite alternate;
+      width: 180px; height: 180px;
+      bottom: 10%; right: -50px;
+      animation: float2 7s ease-in-out infinite alternate;
     }
 
-    /*
-      Keyframes for all animations, providing a smooth and
-      dynamic feel.
-    */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes neonPulse {
-      0%, 100% {
-        opacity: 1;
-        text-shadow: 0 0 5px #ff0000, 0 0 10px #ff3838;
-      }
-      50% {
-        opacity: 0.7;
-        text-shadow: 0 0 15px #ff0000, 0 0 25px #ff3838;
-      }
+    @keyframes zoomIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
-    @keyframes float-red {
+    @keyframes neonPulse {
+      0%, 100% { opacity: 1; text-shadow: 0 0 5px #ff0000, 0 0 12px #ff3b3b; }
+      50% { opacity: 0.7; text-shadow: 0 0 15px #ff0000, 0 0 30px #ff3b3b; }
+    }
+
+    @keyframes glowText {
+      from { text-shadow: 0 0 8px #ff0000; }
+      to { text-shadow: 0 0 18px #ff3b3b; }
+    }
+
+    @keyframes float1 {
       0% { transform: translateY(0) translateX(0); }
       100% { transform: translateY(-40px) translateX(40px); }
     }
-    @keyframes float-red2 {
+
+    @keyframes float2 {
       0% { transform: translateY(0) translateX(0); }
       100% { transform: translateY(-30px) translateX(-40px); }
     }
@@ -149,7 +157,7 @@
 
   <div class="card">
     <h1>🔴 System Offline</h1>
-    <p>We're currently performing a scheduled maintenance. <br>Our servers will be back online soon.</p>
+    <p>We're currently performing a scheduled maintenance.<br>Our servers will be back online soon.</p>
     <div class="pulse">✨ Thanks for your patience...</div>
   </div>
 </body>
