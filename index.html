@@ -2,125 +2,155 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-  <title>Maintenance</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Under Maintenance</title>
   <style>
-    /* Background gradient */
+    /*
+      The background image from the URL provided, with a subtle overlay
+      for a richer, deeper color scheme.
+    */
     body {
       margin: 0;
-      font-family: "Poppins", sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      background: linear-gradient(135deg, #001f3f, #003366, #0055aa);
+      font-family: 'Poppins', sans-serif;
       color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
       overflow: hidden;
+      background-image: url('https://files.catbox.moe/zxwjk7.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
     }
 
-    /* Maintenance card */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6); /* Dark semi-transparent overlay */
+      backdrop-filter: blur(5px); /* Adds a subtle blur effect to the background */
+      z-index: 1;
+    }
+
+    /*
+      The main container for the text and elements,
+      elevated with a subtle animation and red-themed styling.
+    */
     .card {
-      background: rgba(0, 0, 0, 0.55);
-      padding: 28px 24px;
-      border-radius: 20px;
+      position: relative;
+      z-index: 2;
       text-align: center;
-      box-shadow: 0 0 30px rgba(0, 102, 255, 0.5);
-      animation: slideUp 0.8s ease forwards;
+      padding: 30px 40px;
+      background: rgba(255, 255, 255, 0.05); /* Very subtle transparent background */
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* Frosted glass effect */
+      animation: fadeIn 1s ease-in-out forwards;
+      max-width: 90%;
     }
 
     .card h1 {
-      font-size: 1.8rem;
-      margin: 0 0 10px;
-      color: #ffdd00;
-      text-shadow: 0 0 10px #ffdd00, 0 0 20px #ffdd00;
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #ff3838; /* A vibrant, striking red */
+      text-shadow: 0 0 15px #ff0000;
+      letter-spacing: 2px;
     }
 
     .card p {
-      font-size: 1rem;
-      color: #d9e6ff;
-      margin: 0 0 15px;
+      font-size: 1.1rem;
+      margin-top: 0;
+      color: #ccc;
+      line-height: 1.6;
     }
 
-    /* Gooey bubbles */
-    .gooey {
+    /*
+      The pulsing "glow" effect at the bottom of the card,
+      using the same red color for continuity.
+    */
+    .pulse {
+      font-size: 1rem;
+      margin-top: 20px;
+      color: #ff3838;
+      font-weight: 500;
+      animation: neonPulse 2s infinite ease-in-out;
+    }
+
+    /*
+      Subtle visual accents (gooey blobs) with a red gradient,
+      mimicking the original design's aesthetic but with the new color.
+    */
+    .gooey, .gooey2 {
       position: absolute;
+      background: radial-gradient(circle, #ff0000, transparent 70%);
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.4;
+    }
+
+    .gooey {
       width: 250px;
       height: 250px;
-      background: radial-gradient(circle, #ffdd00, transparent 70%);
-      border-radius: 50%;
       top: 15%;
       left: -60px;
-      filter: blur(80px);
-      animation: float 6s ease-in-out infinite alternate;
-    }
-    .gooey2 {
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle, #00aaff, transparent 70%);
-      border-radius: 50%;
-      bottom: 10%;
-      right: -50px;
-      filter: blur(80px);
-      animation: float2 7s ease-in-out infinite alternate;
+      animation: float-red 7s ease-in-out infinite alternate;
     }
 
-    /* Animations */
-    @keyframes slideUp {
-      from { transform: translateY(100px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    .gooey2 {
+      width: 200px;
+      height: 200px;
+      bottom: 10%;
+      right: -50px;
+      animation: float-red2 8s ease-in-out infinite alternate;
     }
-    @keyframes float {
+
+    /*
+      Keyframes for all animations, providing a smooth and
+      dynamic feel.
+    */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes neonPulse {
+      0%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 5px #ff0000, 0 0 10px #ff3838;
+      }
+      50% {
+        opacity: 0.7;
+        text-shadow: 0 0 15px #ff0000, 0 0 25px #ff3838;
+      }
+    }
+
+    @keyframes float-red {
       0% { transform: translateY(0) translateX(0); }
       100% { transform: translateY(-40px) translateX(40px); }
     }
-    @keyframes float2 {
+    @keyframes float-red2 {
       0% { transform: translateY(0) translateX(0); }
       100% { transform: translateY(-30px) translateX(-40px); }
     }
-
-    /* Glowing pulse */
-    .pulse {
-      margin-top: 10px;
-      font-size: 0.9rem;
-      color: #ffdd00;
-      animation: glow 1.6s infinite;
-    }
-    @keyframes glow {
-      0%, 100% { opacity: 1; text-shadow: 0 0 10px #ffdd00; }
-      50% { opacity: 0.6; text-shadow: 0 0 25px #ffee66; }
-    }
-
-    /* Mobile only - block desktop */
-    @media (min-width: 600px) {
-      body::before {
-        content: "⚠️ This site is for mobile devices only!";
-        position: fixed;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #001f3f;
-        color: #ffdd00;
-        font-size: 2rem;
-        text-align: center;
-        padding: 20px;
-        z-index: 9999;
-      }
-      .card { display: none; }
-    }
   </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Gooey glowing shapes -->
   <div class="gooey"></div>
   <div class="gooey2"></div>
 
-  <!-- Main content -->
   <div class="card">
-    <h1>🚧 Under Maintenance</h1>
-    <p>We’re upgrading the system.<br> Please check back soon!</p>
-    <div class="pulse">✨ Cool updates in progress...</div>
+    <h1>🔴 System Offline</h1>
+    <p>We're currently performing a scheduled maintenance. <br>Our servers will be back online soon.</p>
+    <div class="pulse">✨ Thanks for your patience...</div>
   </div>
 </body>
 </html>
